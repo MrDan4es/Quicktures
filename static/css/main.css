@@ -1,0 +1,68 @@
+.header {
+    border-bottom: 1px rgba(0,0,0,.125) solid;
+}
+.btn-profile {
+    border-radius: 9999px;
+    border: 1;
+}
+.btn-add {
+    border-radius: 6px;
+    border: 1px rgba(0,0,0,.125) solid;
+    transition: 0.1s;
+}
+.btn-add:hover {
+    background-color: rgba(0, 255, 0, 0.15);
+    transition: 0.1s;
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+.btn-add:active > svg {
+    transform: rotate(180deg);
+}
+.img-block {
+    width: 100%;
+    height: 100%;
+    object-fit:contain;
+}
+.image-card {
+    border-radius: 6px;
+    overflow: hidden;
+    transition: 0.1s;
+}
+.image-card:hover {
+    filter: brightness(0.8);
+    transition: 0.1s;
+    transform: scale(1.1);
+    z-index: 999;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+.img-block:active {
+    transform: scale(0.9);
+    transition: 0.1s;
+}
+.image-card:hover > .btn-remove, .image-card:hover > .btn-inform {
+    visibility: visible;
+    opacity: 1;
+}
+.btn-remove,  .btn-inform{
+    width: 32px !important;
+    height: 32px !important;
+    margin-left: calc(100% - 36px);
+    margin-top: calc(100% - 36px);
+    border-radius: 6px;
+    transition: 0.2s;
+    line-height: 1.6;
+    opacity: 0;
+    visibility: hidden;
+}
+.btn-inform {
+    margin-left: 4px;
+}
+.btn-remove:hover, .btn-inform:hover {
+    margin-top: calc(100% - 38px);
+    transition: 0.1s;
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+.modal-content-add {
+    border-radius: 6px;
+}

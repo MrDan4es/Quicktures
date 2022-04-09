@@ -1,0 +1,4 @@
+quicktures/__pycache__/*
+storage/__pycache__/*
+venv/*
+storage/migrations/__pycache__/*
