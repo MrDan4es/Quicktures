@@ -1,19 +1,17 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
 from rest_framework.routers import SimpleRouter
 
-from storage.views import ImageAPIList
+from storage.views import ImageViewSet
 from .views import index_page
 
 
 router = SimpleRouter()
-
-# router.register('api/images', ImageAPIView, basename='Image')
+router.register(r'images', ImageViewSet, basename='images')
 
 urlpatterns = [
     path('', index_page, name='index'),
-    path('api/images/', ImageAPIList.as_view()),
+    path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
-
-urlpatterns += router.urls
