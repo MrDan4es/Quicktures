@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row align-items-center g-0 header py-1">
+        <div class="col-2 text-center overflow-hidden">
+            
+        </div>
+        <div class="col-8 text-center">
+            <div class="d-flex h-100 justify-content-center align-items-center display-6">
+                <a class="text-decoration-none" style="color: #4D7A0B;" href="/">QuickTures</a>
+            </div>
+        </div>
+        <div class="offset-1 col-1 p-0 text-center form-check form-switch">
+            <label class="form-check-label" for="lightSwitch"></label>
+            <input class="form-check-input" type="checkbox" id="lightSwitch"/>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+        <ul class="nav nav-tabs justify-content-center pt-2" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link {% if not register_form.password1.errors and not register_form.password2.errors and not register_form.username.errors %}active{% endif %}" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Log In</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link {% if register_form.password2.errors or register_form.username.errors %}active{% endif %}" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button" role="tab" aria-controls="signup" aria-selected="false">Sign Up</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="col col-sm-8 col-md-6 col-lg-4 mx-auto tab-pane fade {% if not register_form.password1.errors and not register_form.password2.errors and not register_form.username.errors %}show active{% endif %}" id="login" role="tabpanel" aria-labelledby="login">
+                <form id="login-form" class="row justify-content-center my-3" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" placeholder="Nickname" class="form-control {% if login_form.errors %}is-invalid{% endif %}" aria-describedby="login" autocapitalize="none" autocomplete="username" autofocus="" id="id_username" maxlength="150" name="username" required="">
+                    </div>
+            
+                    <div class="mb-3">
+                        <input class="form-control {% if login_form.errors %}is-invalid{% endif %}" placeholder="Password" autocomplete="current-password" id="id_password" name="password" required="" type="password">
+                        <div class="invalid-feedback">
+                            {{ login_form.non_field_errors }}
+                        </div>
+                    </div>
+                    
+                    <input class="btn btn-primary my-auto" style="width: 100px;" id="login-btn" type="submit" name="submit" value="Log In">
+                </form>
+            </div>
+            <div class="col col-sm-8 col-md-6 col-lg-4 mx-auto tab-pane fade {% if register_form.password2.errors or register_form.username.errors %}show active{% endif %}" id="signup" role="tabpanel" aria-labelledby="signup">
+                <form id="register-form" class="row justify-content-center my-3" action="" method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <input type="text" placeholder="Nickname" class="form-control {% if register_form.username.errors %}is-invalid{% endif %}" aria-describedby="login" autocapitalize="none" autocomplete="username" autofocus="" id="id_username" maxlength="150" name="username" required="">
+                        <div class="invalid-feedback">
+                            {{ register_form.username.errors }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-control {% if register_form.password2.errors %}is-invalid{% endif %}" placeholder="Password" autocomplete="current-password" id="id_password1" name="password1" required="" type="password"> 
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-control {% if register_form.password2.errors %}is-invalid{% endif %}" placeholder="Confirm" autocomplete="current-password" id="id_password2" name="password2" required="" type="password">
+                        <div class="invalid-feedback">
+                            {{ register_form.password2.errors }}
+                        </div>
+                    </div>
+                    <input class="btn btn-primary my-auto" style="width: 100px;" id="register-btn" type="submit" name="submit" value="Sign Up">
+                </form>
+                
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+

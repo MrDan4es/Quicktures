@@ -1,5 +1,5 @@
 .header {
-    border-bottom: 1px rgba(0,0,0,.125) solid;
+    border-bottom: 1px solid #dee2e680!important;
 }
 .btn-profile {
     border-radius: 9999px;
@@ -7,7 +7,7 @@
 }
 .btn-add {
     border-radius: 6px;
-    border: 1px rgba(0,0,0,.125) solid;
+    border: 1px solid #dee2e680!important;
     transition: 0.1s;
 }
 .btn-add:hover {
@@ -15,19 +15,20 @@
     transition: 0.1s;
     transform: scale(1.03);
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    background-color: #d3d3d3;
+    background-image: linear-gradient(315deg, #d3d3d3 0%, #2bc96d 74%);
 }
 .btn-add:active > svg {
     transform: rotate(180deg);
 }
 .img-block {
-    width: 100%;
-    height: 100%;
     object-fit:contain;
 }
 .image-card {
     border-radius: 6px;
     overflow: hidden;
-    transition: 0.1s;
+    transition: 0.5s;
+    background-color: rgba(0,0,0,0);
 }
 .image-card:hover {
     filter: brightness(0.8);
@@ -65,4 +66,19 @@
 }
 .modal-content-add {
     border-radius: 6px;
+}
+#btn-logout-img {
+    margin-bottom: 4px;
+}
+#btn-logout {
+    color: gray;
+}
+#btn-logout:hover > #btn-logout-img {
+    color: #dc3545;
+}
+.nav-tabs {
+    border-bottom-color: rgba(222, 226, 230, 0.5);
+}
+.nav-tabs .nav-link:hover {
+    border-color: #e9ecef80 #e9ecef80 #dee2e680;
 }

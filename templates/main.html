@@ -1,29 +1,37 @@
 {% load static %}
 
 <div class="container">
-    <div class="row align-items-center g-0 header" style="height: 50px;">
-        <div class="col-2 text-center overflow-hidden">
+    <div class="row align-items-center g-0 header py-1">
+        <a href="/logout/" class="col-2 btn text-center overflow-hidden" id="btn-logout">
             {{ user.get_username }}
-        </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="btn-logout-img" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+            </svg>
+        </a>
         <div class="col-8 text-center">
             <div class="d-flex h-100 justify-content-center align-items-center display-6">
-                QuickTures
+                <a class="text-decoration-none" style="color: #4D7A0B;" href="/">QuickTures</a>
             </div>
         </div>
-        <div class="col-2 p-0 text-center">
-                <a class="btn btn-profile" href="#" role="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                    </svg>
-                </a>
+        <div class="offset-1 col-1 p-0 text-center form-check form-switch">
+            <label class="form-check-label" for="lightSwitch"></label>
+            <input class="form-check-input" type="checkbox" id="lightSwitch"/>
         </div>
+        <!-- <div class="col-2 p-0 text-center">
+            <a class="btn btn-profile" href="#" role="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                </svg>
+            </a>
+        </div> -->
     </div>
 
     <div class="container">
         <div class="col-12 py-2">
             <a href="#modal-add" data-bs-toggle="modal" class="btn d-block h-100 w-100 btn-add">
                 <div class="text-center h-100 w-100">
-                    <svg class="btn-add-img" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="black" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="green" width="32" height="32" class="bi bi-plus-circle btn-add-img" viewBox="0 0 16 16">
                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
                     </svg>
@@ -34,8 +42,8 @@
             
             {% for image in images %}
             <div class="col" id="block-image-{{ image.id }}">
-                <div class="card image-card ratio ratio-1x1">
-                    <img src="{{ image.url }}" class="card-img-top img-block" id="{{ image.id }}" alt="...">
+                <div class="card image-card ratio ratio-1x1" id="image-card-{{ image.id }}">
+                    <img src="{{ image.url }}" class="img-block" id="{{ image.id }}" alt="...">
                     
                     <a href="javascript:void(0);" class="btn p-0 btn-outline-primary btn-inform" id="{{ image.id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
@@ -50,7 +58,6 @@
                 </div>
             </div>
             {% endfor %}
-
         </div>
     </div>
 </div>
@@ -58,7 +65,7 @@
 <!-- Add image modal -->
 <div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content modal-content-add">
+        <div class="modal-content modal-content-add bg-dark">
           <div class="modal-header">
             <h5 class="modal-title">Add image</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -106,8 +113,8 @@
 <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1000;">
 
     <!-- Image added toast -->
-    <div id="imageAddToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
+    <div id="imageAddToast" class="toast hide bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-dark">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-check2" viewBox="0 0 16 16">
                 <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
             </svg>
@@ -121,8 +128,8 @@
 
 
     <!-- Image URL copied -->
-    <div id="imageCopyToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
+    <div id="imageCopyToast" class="toast hide bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-dark">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
                 <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
                 <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
@@ -136,8 +143,8 @@
     </div>
 
     <!-- Image delete toast -->
-    <div id="imageDeleteToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header">
+    <div id="imageDeleteToast" class="toast hide bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-dark">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
                 <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
                 <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>

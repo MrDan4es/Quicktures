@@ -14,12 +14,15 @@
     <script src="{% static 'js/main.js' %}"></script>
     <title>QuickTures</title>
 </head>
-<body>
+<body class="bg-light">
+
     {% if user.is_authenticated %}
         {% include 'main.html' %}
     {% else %}
-        123
+        {% include 'signup-login.html' %}
     {% endif %}
     
+
+    <script src="{% static 'js/switch.js' %}"></script>
 </body>
 </html>

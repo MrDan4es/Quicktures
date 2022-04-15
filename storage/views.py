@@ -1,6 +1,5 @@
-from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import generics, viewsets
+from rest_framework import viewsets
 
 from storage.models import Image
 from storage.serializers import ImageSerializer
@@ -14,9 +13,6 @@ class ImageViewSet(viewsets.ModelViewSet):
     
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
-        if not serializer.is_valid():
-            print(request.data)
-            print(serializer.errors)
             
         serializer.is_valid(raise_exception=True)
         serializer.save(user=self.request.user)
