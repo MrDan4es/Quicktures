@@ -45,7 +45,7 @@
                 <div class="card image-card ratio ratio-1x1" id="image-card-{{ image.id }}">
                     <img src="{{ image.url }}" class="img-block" id="{{ image.id }}" alt="...">
                     
-                    <a href="javascript:void(0);" class="btn p-0 btn-outline-primary btn-inform" id="{{ image.id }}">
+                    <a href="javascript:void(0);" class="btn p-0 btn-outline-primary btn-inform" id="{{ image.id }}" data-title="{{ image.title }}" data-date="{{ image.date_create }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
                             <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704l1.323-6.208Zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0Z"/>
                         </svg>
@@ -65,14 +65,14 @@
 <!-- Add image modal -->
 <div class="modal fade" id="modal-add" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content modal-content-add bg-dark">
+        <div class="modal-content modal-content-add bg-light">
           <div class="modal-header">
             <h5 class="modal-title">Add image</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="input-group mb-3">
-                <input type="search" class="form-control" placeholder="Image Title" id="title-add-form" aria-label="title" required>
+                <input type="search" class="form-control" placeholder="Image Title" id="title-add-form" aria-label="title" required="true">
             </div>
             <div class="mb-3">
                 <input type="search" class="form-control" placeholder="https://www.example.com/image.png" id="url-add-form" aria-label="url" required>
@@ -113,8 +113,8 @@
 <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1000;">
 
     <!-- Image added toast -->
-    <div id="imageAddToast" class="toast hide bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg-dark">
+    <div id="imageAddToast" class="toast hide bg-light" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-light">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-check2" viewBox="0 0 16 16">
                 <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
             </svg>
@@ -128,8 +128,8 @@
 
 
     <!-- Image URL copied -->
-    <div id="imageCopyToast" class="toast hide bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg-dark">
+    <div id="imageCopyToast" class="toast hide bg-light" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-light">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="green" class="bi bi-file-earmark-check" viewBox="0 0 16 16">
                 <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
                 <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
@@ -143,8 +143,8 @@
     </div>
 
     <!-- Image delete toast -->
-    <div id="imageDeleteToast" class="toast hide bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg-dark">
+    <div id="imageDeleteToast" class="toast hide bg-light" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-light">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
                 <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
                 <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>

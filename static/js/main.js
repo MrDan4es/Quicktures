@@ -16,7 +16,7 @@ $( document ).ready(function() {
     }
     const csrftoken = getCookie('csrftoken')
 
-    const motionMatchMedia = window.matchMedia("(prefers-reduced-motion)");
+    const motionMatchMedia = window.matchMedia('(prefers-reduced-motion)');
     const THRESHOLD = 15;
     
     function handleHover(e, item) {
@@ -41,45 +41,100 @@ $( document ).ready(function() {
             item.addEventListener('mouseleave', event => {resetStyles(event, item)})
         })
     }
+    function copyToClipboard(string) {
+        let textarea
+        let result
+      
+        try {
+            textarea = document.createElement('textarea')
+            textarea.setAttribute('readonly', true)
+            textarea.setAttribute('contenteditable', true)
+            textarea.style.position = 'fixed'
+            textarea.value = string;
+        
+            document.body.appendChild(textarea)
+        
+            textarea.focus()
+            textarea.select()
+        
+            const range = document.createRange()
+            range.selectNodeContents(textarea)
+        
+            const sel = window.getSelection()
+            sel.removeAllRanges()
+            sel.addRange(range)
+        
+            textarea.setSelectionRange(0, textarea.value.length)
+            result = document.execCommand('copy')
+        } catch (err) {
+            console.error(err)
+            result = null
+        } finally {
+            document.body.removeChild(textarea)
+        }
+      
+        // manual copy fallback using prompt
+        if (!result) {
+            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+            const copyHotkey = isMac ? '⌘C' : 'CTRL+C';
+            result = prompt(`Press ${copyHotkey}`, string); // eslint-disable-line no-alert
+            if (!result) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-    $(document).on("click", ".img-block" , function() {
+    $(document).on('click', '.img-block' , function() {
         var src = $(this).attr('src')
+        copyToClipboard(src)
+        // var tempField = document.createElement("textarea")
+        // document.body.appendChild(tempField)
+        // tempField.value = src
 
-        var tempField = document.createElement("textarea")
-        document.body.appendChild(tempField)
-        tempField.value = src
-
-        if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-            tempField.contentEditable = true
-            tempField.readOnly = true
-            var range = document.createRange()
-            range.selectNodeContents(tempField)
-            var selection = window.getSelection()
-            selection.removeAllRanges()
-            selection.addRange(range)
-            el.setSelectionRange(0, 999999)
-        }
-        else {
-            tempField.select()
-        }
-        document.execCommand("copy")
-        document.body.removeChild(tempField)
+        // if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+        //     tempField.contentEditable = true
+        //     tempField.readOnly = true
+        //     var range = document.createRange()
+        //     range.selectNodeContents(tempField)
+        //     var selection = window.getSelection()
+        //     selection.removeAllRanges()
+        //     selection.addRange(range)
+        //     el.setSelectionRange(0, 999999)
+        // }
+        // else {
+        //     tempField.select()
+        // }
+        // document.execCommand("copy")
+        // document.body.removeChild(tempField)
 
         $('#imageCopyToast').toast('show')
     })
 
-    $(document).on("click", ".btn-remove" , function() {
-        var id = $(this).attr('id')
+    $(document).on('click', '.btn-inform', function() {
+        let id = $(this).attr('id')
+        let width = $('.img-block#' + id).get(0).naturalWidth
+        let height = $('.img-block#' + id).get(0).naturalHeight
+        console.log($(this).data())
+    })
+
+    $(document).on('click', '.btn-remove', function() {
+        let id = $(this).attr('id')
         if (confirm('Do you want to delete the image?')) {
             
 
             $.ajax({
-                url : "/api/images/" + id,
-                dataType: "json",
+                url : '/api/images/' + id,
+                dataType: 'json',
                 type: 'DELETE',
                 headers: {'X-CSRFToken': csrftoken},
                 success: function () {
-                    $('#block-image-' + id).remove()
+                    // $('#block-image-' + id).animate({
+                    //     opacity: 0,
+                    //   }, 1000, function() {
+                    //     $('#block-image-' + id).remove()
+                    //   });
+                    $('#block-image-' + id).hide('slow', function(){ $('#block-image-' + id).remove(); });
                     $('#imageDeleteToast').toast('show')
                 },
                 error: function(response) {
@@ -90,36 +145,42 @@ $( document ).ready(function() {
         }
     })
 
+    function checkImage(imageSrc, good, bad) {
+        var img = new Image()
+        img.onload = good
+        img.onerror = bad
+        img.src = imageSrc
+    }
+
     $('#btn-add-img').click(function() {
         let btn = $(this)
         btn.addClass('disabled')
-        function checkImage(imageSrc, good, bad) {
-            var img = new Image()
-            img.onload = good
-            img.onerror = bad
-            img.src = imageSrc
-        }
         
-        checkImage($('#url-add-form').val(), function(){ 
+        
+        checkImage($('#url-add-form').val(), function(){
+            var d = new Date();
+            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+            let title = $('#title-add-form').val() || strDate
             $.ajax({
-                url : "/api/images/?format=json",
-                dataType: "json",
+                url : '/api/images/?format=json',
+                dataType: 'json',
                 type: 'POST',
                 headers: {'X-CSRFToken': csrftoken},
                 data: {
-                    'title': $('#title-add-form').val(),
+                    'title': title,
                     'url': $('#url-add-form').val()
                 }, 
                 success: function (response) {
                     btn.removeClass('disabled')
                     $('#modal-add').modal('hide')
                     $('#imageAddToast').toast('show')
+                    // console.log(Date(Date.parse(response.image.date_create)))
                     $('#images-container').prepend(`
                     <div class="col" id="block-image-${response.image.id}">
                         <div class="card image-card ratio ratio-1x1" id="image-card-${response.image.id}">
                             <img src="${response.image.url}" class="img-block" id="${response.image.id}" alt="...">
                         
-                            <a href="javascript:void(0);" class="btn p-0 btn-outline-primary btn-inform" id="${response.image.id}">
+                            <a href="javascript:void(0);" class="btn p-0 btn-outline-primary btn-inform" id="${response.image.id}" data-title="${response.image.title}" data-date="${response.image.date_create}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-info-lg" viewBox="0 0 16 16">
                                     <path d="m9.708 6.075-3.024.379-.108.502.595.108c.387.093.464.232.38.619l-.975 4.577c-.255 1.183.14 1.74 1.067 1.74.72 0 1.554-.332 1.933-.789l.116-.549c-.263.232-.65.325-.905.325-.363 0-.494-.255-.402-.704l1.323-6.208Zm.091-2.755a1.32 1.32 0 1 1-2.64 0 1.32 1.32 0 0 1 2.64 0Z"/>
                                 </svg>
@@ -136,12 +197,12 @@ $( document ).ready(function() {
                     item.addEventListener('mouseleave', event => {resetStyles(event, item)})
                 },
                 error: function(response) {
-                    alert(response.data)
+                    btn.removeClass('disabled')
                 }
             }) 
         }, function(){
             btn.removeClass('disabled')
-            alert("Failed to save URL")
+            alert('Failed to save URL')
         })
     })
 })

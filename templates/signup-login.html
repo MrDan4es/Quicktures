@@ -29,11 +29,19 @@
                 <form id="login-form" class="row justify-content-center my-3" action="" method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <input type="text" placeholder="Nickname" class="form-control {% if login_form.errors %}is-invalid{% endif %}" aria-describedby="login" autocapitalize="none" autocomplete="username" autofocus="" id="id_username" maxlength="150" name="username" required="">
+                        <input type="text" placeholder="Username" class="form-control {% if login_form.errors %}is-invalid{% endif %}" aria-describedby="login" autocapitalize="none" autocomplete="username" autofocus="" id="id_username" maxlength="150" name="username" required="">
                     </div>
             
                     <div class="mb-3">
                         <input class="form-control {% if login_form.errors %}is-invalid{% endif %}" placeholder="Password" autocomplete="current-password" id="id_password" name="password" required="" type="password">
+                        <!-- <div class="input-group-text" style="border-top-right-radius: 0.25rem; border-bottom-right-radius: 0.25rem;">
+                            <a href="javascript:void(0);" class="mt-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="black" class="bi bi-eye-slash-fill" viewBox="0 0 16 16">
+                                    <path d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z"/>
+                                    <path d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z"/>
+                                  </svg>
+                            </a>
+                        </div> -->
                         <div class="invalid-feedback">
                             {{ login_form.non_field_errors }}
                         </div>
@@ -46,7 +54,7 @@
                 <form id="register-form" class="row justify-content-center my-3" action="" method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <input type="text" placeholder="Nickname" class="form-control {% if register_form.username.errors %}is-invalid{% endif %}" aria-describedby="login" autocapitalize="none" autocomplete="username" autofocus="" id="id_username" maxlength="150" name="username" required="">
+                        <input type="text" placeholder="Username" class="form-control {% if register_form.username.errors %}is-invalid{% endif %}" aria-describedby="login" autocapitalize="none" autocomplete="username" autofocus="" id="id_username" maxlength="150" name="username" required="">
                         <div class="invalid-feedback">
                             {{ register_form.username.errors }}
                         </div>
@@ -57,7 +65,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <input class="form-control {% if register_form.password2.errors %}is-invalid{% endif %}" placeholder="Confirm" autocomplete="current-password" id="id_password2" name="password2" required="" type="password">
+                        <input class="form-control {% if register_form.password2.errors %}is-invalid{% endif %}" placeholder="Confirm Password" autocomplete="current-password" id="id_password2" name="password2" required="" type="password">
                         <div class="invalid-feedback">
                             {{ register_form.password2.errors }}
                         </div>
