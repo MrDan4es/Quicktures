@@ -41,6 +41,7 @@ $( document ).ready(function() {
             item.addEventListener('mouseleave', event => {resetStyles(event, item)})
         })
     }
+
     function copyToClipboard(string) {
         let textarea
         let result
@@ -75,39 +76,19 @@ $( document ).ready(function() {
       
         // manual copy fallback using prompt
         if (!result) {
-            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-            const copyHotkey = isMac ? '⌘C' : 'CTRL+C';
-            result = prompt(`Press ${copyHotkey}`, string); // eslint-disable-line no-alert
+            const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
+            const copyHotkey = isMac ? '⌘C' : 'CTRL+C'
+            result = prompt(`Press ${copyHotkey}`, string)
             if (!result) {
-                return false;
+                return false
             }
         }
-        return true;
+        return true
     }
 
     $(document).on('click', '.img-block' , function() {
         var src = $(this).attr('src')
         copyToClipboard(src)
-        // var tempField = document.createElement("textarea")
-        // document.body.appendChild(tempField)
-        // tempField.value = src
-
-        // if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-        //     tempField.contentEditable = true
-        //     tempField.readOnly = true
-        //     var range = document.createRange()
-        //     range.selectNodeContents(tempField)
-        //     var selection = window.getSelection()
-        //     selection.removeAllRanges()
-        //     selection.addRange(range)
-        //     el.setSelectionRange(0, 999999)
-        // }
-        // else {
-        //     tempField.select()
-        // }
-        // document.execCommand("copy")
-        // document.body.removeChild(tempField)
-
         $('#imageCopyToast').toast('show')
     })
 
@@ -120,29 +101,39 @@ $( document ).ready(function() {
 
     $(document).on('click', '.btn-remove', function() {
         let id = $(this).attr('id')
-        if (confirm('Do you want to delete the image?')) {
-            
 
-            $.ajax({
-                url : '/api/images/' + id,
-                dataType: 'json',
-                type: 'DELETE',
-                headers: {'X-CSRFToken': csrftoken},
-                success: function () {
-                    // $('#block-image-' + id).animate({
-                    //     opacity: 0,
-                    //   }, 1000, function() {
-                    //     $('#block-image-' + id).remove()
-                    //   });
-                    $('#block-image-' + id).hide('slow', function(){ $('#block-image-' + id).remove(); });
-                    $('#imageDeleteToast').toast('show')
-                },
-                error: function(response) {
-                    alert(response.data)
-                }
-            }) 
-
-        }
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success m-2',
+                cancelButton: 'btn btn-danger m-2'
+            },
+            buttonsStyling: false
+        })
+          
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Delete!',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url : '/api/images/' + id,
+                    dataType: 'json',
+                    type: 'DELETE',
+                    headers: {'X-CSRFToken': csrftoken},
+                    success: function () {
+                        $('#block-image-' + id).hide('slow', function(){ $('#block-image-' + id).remove(); });
+                        $('#imageDeleteToast').toast('show')
+                    },
+                    error: function(response) {
+                        console.log(response.data)
+                    }
+                })
+            }
+        })
     })
 
     function checkImage(imageSrc, good, bad) {
@@ -192,9 +183,12 @@ $( document ).ready(function() {
                             </a>
                         </div>
                     </div>`)
-                    let item = document.querySelector(`#image-card-${response.image.id}`)
-                    item.addEventListener('mousemove', event => {handleHover(event, item)})
-                    item.addEventListener('mouseleave', event => {resetStyles(event, item)})
+                    
+                    if (!motionMatchMedia.matches && !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+                        let item = document.querySelector(`#image-card-${response.image.id}`)
+                        item.addEventListener('mousemove', event => {handleHover(event, item)})
+                        item.addEventListener('mouseleave', event => {resetStyles(event, item)})
+                    }
                 },
                 error: function(response) {
                     btn.removeClass('disabled')
