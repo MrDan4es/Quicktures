@@ -3,7 +3,7 @@ from .settings_base import *
 
 SECRET_KEY = 'django-insecure-2fv%g-sul$fu-gbekmsw^&$8z8z#_g8-w^2tbqb8)#z6%pi%2%'
 
-DEBUG = False
+DEBUG = True # ?
 
 ALLOWED_HOSTS = ['*']
 

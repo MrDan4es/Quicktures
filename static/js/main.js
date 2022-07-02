@@ -90,12 +90,13 @@ $( document ).ready(function() {
         return true
     }
 
-    $(document).on('click', '.img-block' , () => {
-        copyToClipboard($(this).attr('src'))
+    $(document).on('click', '.img-block' , function() {
+        var src = $(this).attr('src')
+        copyToClipboard(src)
         $('#imageCopyToast').toast('show')
     })
 
-    $(document).on('click', '.btn-inform', () => {
+    $(document).on('click', '.btn-inform', function() {
         let id = $(this).attr('id')
         let width = $('.img-block#' + id).get(0).naturalWidth
         let height = $('.img-block#' + id).get(0).naturalHeight
@@ -103,7 +104,7 @@ $( document ).ready(function() {
     })
 
     // remove image
-    $(document).on('click', '.btn-remove', () => {
+    $(document).on('click', '.btn-remove', function() {
         let id = $(this).attr('id')
 
         const swalWithBootstrapButtons = Swal.mixin({
