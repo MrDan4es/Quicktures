@@ -1,5 +1,6 @@
 $( document ).ready(function() {
 
+    // get csrf from cookies
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -16,25 +17,27 @@ $( document ).ready(function() {
     }
     const csrftoken = getCookie('csrftoken')
 
-    const motionMatchMedia = window.matchMedia('(prefers-reduced-motion)');
+    // hover animation
+    const motionMatchMedia = window.matchMedia('(prefers-reduced-motion)')
     const THRESHOLD = 15;
     
     function handleHover(e, item) {
-        const { clientX, clientY, currentTarget } = e;
-        const { clientWidth, clientHeight, offsetLeft, offsetTop } = currentTarget;
+        const { clientX, clientY, currentTarget } = e
+        const { clientWidth, clientHeight, offsetLeft, offsetTop } = currentTarget
 
-        const horizontal = (clientX - offsetLeft) / clientWidth;
-        const vertical = (clientY - offsetTop) / clientHeight;
-        const rotateX = (THRESHOLD / 2 - horizontal * THRESHOLD).toFixed(2);
-        const rotateY = (vertical * THRESHOLD - THRESHOLD / 2).toFixed(2);
+        const horizontal = (clientX - offsetLeft) / clientWidth
+        const vertical = (clientY - offsetTop) / clientHeight
+        const rotateX = (THRESHOLD / 2 - horizontal * THRESHOLD).toFixed(2)
+        const rotateY = (vertical * THRESHOLD - THRESHOLD / 2).toFixed(2)
 
-        item.style.transform = `perspective(${clientWidth}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg) scale3d(1, 1, 1)`;
+        item.style.transform = `perspective(${clientWidth}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg) scale3d(1, 1, 1)`
     }
     
     function resetStyles(e, item) {
-      item.style.transform = `perspective(${e.currentTarget.clientWidth}px) rotateX(0deg) rotateY(0deg)`;
+      item.style.transform = `perspective(${e.currentTarget.clientWidth}px) rotateX(0deg) rotateY(0deg)`
     }
     
+    // add hover animation on desktop only
     if (!motionMatchMedia.matches && !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
         document.querySelectorAll('.image-card').forEach(item => {
             item.addEventListener('mousemove', event => {handleHover(event, item)})
@@ -42,6 +45,7 @@ $( document ).ready(function() {
         })
     }
 
+    // copy url to clipboard
     function copyToClipboard(string) {
         let textarea
         let result
@@ -51,7 +55,7 @@ $( document ).ready(function() {
             textarea.setAttribute('readonly', true)
             textarea.setAttribute('contenteditable', true)
             textarea.style.position = 'fixed'
-            textarea.value = string;
+            textarea.value = string
         
             document.body.appendChild(textarea)
         
@@ -86,20 +90,20 @@ $( document ).ready(function() {
         return true
     }
 
-    $(document).on('click', '.img-block' , function() {
-        var src = $(this).attr('src')
-        copyToClipboard(src)
+    $(document).on('click', '.img-block' , () => {
+        copyToClipboard($(this).attr('src'))
         $('#imageCopyToast').toast('show')
     })
 
-    $(document).on('click', '.btn-inform', function() {
+    $(document).on('click', '.btn-inform', () => {
         let id = $(this).attr('id')
         let width = $('.img-block#' + id).get(0).naturalWidth
         let height = $('.img-block#' + id).get(0).naturalHeight
         console.log($(this).data())
     })
 
-    $(document).on('click', '.btn-remove', function() {
+    // remove image
+    $(document).on('click', '.btn-remove', () => {
         let id = $(this).attr('id')
 
         const swalWithBootstrapButtons = Swal.mixin({
@@ -117,7 +121,7 @@ $( document ).ready(function() {
             confirmButtonText: 'Delete!',
             cancelButtonText: 'Cancel',
             reverseButtons: true
-        }).then((result) => {
+        }).then(result => {
             if (result.isConfirmed) {
                 $.ajax({
                     url : '/api/images/' + id,
@@ -125,7 +129,7 @@ $( document ).ready(function() {
                     type: 'DELETE',
                     headers: {'X-CSRFToken': csrftoken},
                     success: function () {
-                        $('#block-image-' + id).hide('slow', function(){ $('#block-image-' + id).remove(); });
+                        $('#block-image-' + id).hide('slow', function(){$('#block-image-' + id).remove()})
                         $('#imageDeleteToast').toast('show')
                     },
                     error: function(response) {
@@ -136,6 +140,7 @@ $( document ).ready(function() {
         })
     })
 
+    // is the given url an image
     function checkImage(imageSrc, good, bad) {
         var img = new Image()
         img.onload = good
@@ -143,17 +148,17 @@ $( document ).ready(function() {
         img.src = imageSrc
     }
 
+    // add image
     $('#btn-add-img').click(function() {
         let btn = $(this)
         btn.addClass('disabled')
         
-        
-        checkImage($('#url-add-form').val(), function(){
-            var d = new Date();
-            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+        checkImage($('#url-add-form').val(), () => {
+            var d = new Date()
+            var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate()
             let title = $('#title-add-form').val() || strDate
             $.ajax({
-                url : '/api/images/?format=json',
+                url : '/api/images/',
                 dataType: 'json',
                 type: 'POST',
                 headers: {'X-CSRFToken': csrftoken},
@@ -161,11 +166,10 @@ $( document ).ready(function() {
                     'title': title,
                     'url': $('#url-add-form').val()
                 }, 
-                success: function (response) {
+                success: response => {
                     btn.removeClass('disabled')
                     $('#modal-add').modal('hide')
                     $('#imageAddToast').toast('show')
-                    // console.log(Date(Date.parse(response.image.date_create)))
                     $('#images-container').prepend(`
                     <div class="col" id="block-image-${response.image.id}">
                         <div class="card image-card ratio ratio-1x1" id="image-card-${response.image.id}">
@@ -186,15 +190,21 @@ $( document ).ready(function() {
                     
                     if (!motionMatchMedia.matches && !(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
                         let item = document.querySelector(`#image-card-${response.image.id}`)
-                        item.addEventListener('mousemove', event => {handleHover(event, item)})
-                        item.addEventListener('mouseleave', event => {resetStyles(event, item)})
+                        item.addEventListener(
+                            'mousemove', 
+                            event => {handleHover(event, item)}
+                        )
+                        item.addEventListener(
+                            'mouseleave',
+                            event => {resetStyles(event, item)}
+                        )
                     }
                 },
-                error: function(response) {
+                error: response => {
                     btn.removeClass('disabled')
                 }
             }) 
-        }, function(){
+        }, () => {
             btn.removeClass('disabled')
             alert('Failed to save URL')
         })

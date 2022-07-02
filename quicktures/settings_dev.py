@@ -1,9 +1,9 @@
 from .settings_base import *
 
 
-SECRET_KEY = 'django-insecure-2fv%g-sul$fu-gbekmsw^&$8z8z#_g8-w^2tbqb8)#z6%pi%2%'
+SECRET_KEY = 'django-insecure-2fv%g-sul$fu-gbekmsw^&$5z5z#_g6-w^3tbqb8)#z6%pi%2%'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -22,8 +22,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'whitenoise.middleware.WhiteNoiseMiddleware',    
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -31,17 +29,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'livereload.middleware.LiveReloadScript',
 ]
 
-try:
-    from .prod_db_settings import DATABASES
-except ImportError:
-    from .settings_dev import DATABASES
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer'
     ]
 }
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

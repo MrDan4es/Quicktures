@@ -1,4 +1,2 @@
-quicktures/__pycache__/*
-storage/__pycache__/*
+*.pyc
 venv/*
-storage/migrations/__pycache__/*

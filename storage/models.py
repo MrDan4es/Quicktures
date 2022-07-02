@@ -1,10 +1,12 @@
-from email.policy import default
-from time import timezone
-from django.db.models import Model
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db.models import (
-    CharField, ForeignKey, URLField, DateTimeField, CASCADE
+    CASCADE,
+    CharField,
+    DateTimeField,
+    ForeignKey,
+    Model,
+    URLField,
 )
 
 
