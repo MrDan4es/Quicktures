@@ -106,13 +106,14 @@ $( document ).ready(function() {
     // remove image
     $(document).on('click', '.btn-remove', function() {
         let id = $(this).attr('id')
-
+        let background_color = lightSwitch.checked ? '#212529' : '#fff'
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success m-2',
                 cancelButton: 'btn btn-danger m-2'
             },
-            buttonsStyling: false
+            buttonsStyling: false,
+            background: background_color
         })
           
         swalWithBootstrapButtons.fire({
