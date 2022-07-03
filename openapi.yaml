@@ -1,0 +1,66 @@
+openapi: '3.0.2'
+info:
+  title: Quicktures API
+  version: '1.0'
+
+servers:
+   - url: https://quicktures.herokuapp.com/api
+   - url: http://localhost:8000/api
+
+paths:
+  /images/:
+    get:
+      summary: Get list of images urls
+      parameters:
+        - in: header
+          name: X-CSRFToken
+          schema:
+            type: string
+      # requestBody:
+      #   content:
+      #     application/json:
+      #       schema:
+      #         type: array
+      #         items:
+      #           type: object
+      #           properties:
+      #             id:
+      #               type: integer
+      #             name:
+      #               type: string
+      #             desc:
+      #               type: string
+      #       example:
+      #         - id: 1
+      #           name: Core Rulebook
+      #           desc: ''
+      #         - id: 2
+      #           name: Advanced Player's Guide
+      #           desc: ''
+      responses:
+        '200':
+          description: OK 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Image'
+        '403':
+          description: Forbidden
+
+components:
+  schemas:
+
+    Image:
+      type: object
+      properties:
+        id: 
+          type: integer
+        title:
+          type: string
+        url:
+          type: string
+        date_create:
+          type: string
+          format: date-time

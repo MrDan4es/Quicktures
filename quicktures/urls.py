@@ -3,12 +3,13 @@ from django.urls import path, include
 
 from rest_framework.routers import SimpleRouter
 
-from storage.views import ImageViewSet
+from storage.views import AllImagesViewSet, UserImagesViewSet
 from .views import index_page, logout_view
 
 
 router = SimpleRouter()
-router.register(r'images', ImageViewSet, basename='images')
+router.register('images', UserImagesViewSet, basename='images')
+router.register('all', AllImagesViewSet, basename='all')
 
 urlpatterns = [
     path('', index_page, name='index'),

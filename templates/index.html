@@ -10,17 +10,18 @@
     <title>QuickTures</title>
 </head>
 <body class="bg-light">
-
+    
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.5.2.0.b1.bundle.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    
     {% if user.is_authenticated %}
         {% include 'main.html' %}
     {% else %}
         {% include 'signup-login.html' %}
     {% endif %}
-    
-    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.5.2.0.b1.bundle.min.js' %}"></script>
-    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+
     <script src="{% static 'js/switch.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>

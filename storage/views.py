@@ -1,11 +1,13 @@
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.response import Response
-from rest_framework import viewsets
 
 from storage.models import Image
 from storage.serializers import ImageSerializer
 
 
-class ImageViewSet(viewsets.ModelViewSet):
+class UserImagesViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
     serializer_class = ImageSerializer
     
     def get_queryset(self):
@@ -17,4 +19,9 @@ class ImageViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save(user=self.request.user)
         
-        return Response({'image': serializer.data})
+        return Response(serializer.data)
+
+
+class AllImagesViewSet(ReadOnlyModelViewSet):
+    serializer_class = ImageSerializer
+    queryset = Image.objects.all()

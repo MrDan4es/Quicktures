@@ -211,5 +211,29 @@ $( document ).ready(function() {
             alert('Failed to save URL')
         })
     })
+
+    $('#testbtn').click(async (e) => {
+        const { value: formValues } = await Swal.fire({
+            title: 'Add image',
+            html:
+               `<div class="input-group mb-3">
+                    <input type="search" class="form-control" placeholder="Image Title" id="title-add-form" aria-label="title" required="true">
+                </div>
+                <div class="mb-3">
+                    <input type="search" class="form-control" placeholder="https://www.example.com/image.png" id="url-add-form" aria-label="url" required>
+                </div>`,
+            focusConfirm: false,
+            preConfirm: () => {
+              return [
+                document.getElementById('title-add-form').value,
+                document.getElementById('url-add-form').value
+              ]
+            }
+          })
+          
+          if (formValues) {
+            Swal.fire(JSON.stringify(formValues))
+          }
+    })
 })
             
