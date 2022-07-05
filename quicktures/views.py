@@ -38,6 +38,12 @@ def index_page(request):
             'login_form': loginForm
         })
     
+
+def all_page(request):
+    images = Image.objects.order_by('-date_create')[:24]
+    
+    return render(request, 'all.html', {'images': images})
+
     
 def logout_view(request):
     logout(request)
