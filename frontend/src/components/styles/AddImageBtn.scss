@@ -1,0 +1,13 @@
+.addImageBtn {
+    border-radius: 6px;
+    border: 1px solid #dee2e680!important;
+    transition: 0.1s;
+    &:hover {
+        background-color: rgba(0, 255, 0, 0.15);
+        transition: 0.1s;
+        transform: scale(1.03);
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+        background-color: #d3d3d3;
+        background-image: linear-gradient(315deg, #d3d3d3 0%, #2bc96d 74%);
+    }   
+}

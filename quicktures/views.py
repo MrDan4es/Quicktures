@@ -1,4 +1,4 @@
-from django import http
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -6,7 +6,10 @@ from django.contrib.auth import authenticate, login, logout
 from storage.models import Image
 
 
-def index_page(request): 
+def login_page(request): 
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/')
+    
     registerForm = UserCreationForm()
     loginForm = AuthenticationForm()
     
@@ -18,7 +21,7 @@ def index_page(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return http.HttpResponseRedirect('/')
+                return HttpResponseRedirect('/')
         elif request.POST.get('submit') == 'Sign Up':
             registerForm = UserCreationForm(request.POST)
             if registerForm.is_valid():
@@ -27,16 +30,12 @@ def index_page(request):
                 password=registerForm.cleaned_data['password1']
                 user = authenticate(username=username, password=password)
                 login(request, user)
-                return http.HttpResponseRedirect('/')
-                
-    if request.user.is_authenticated:
-        images = Image.objects.filter(user=request.user).order_by('-id')
-        return render(request, 'index.html', {'images': images})
-    else:
-        return render(request, 'index.html', {
-            'register_form':registerForm,
-            'login_form': loginForm
-        })
+                return HttpResponseRedirect('/')
+     
+    return render(request, 'login.html', {
+        'register_form':registerForm,
+        'login_form': loginForm
+    })
     
 
 def all_page(request):
@@ -45,6 +44,6 @@ def all_page(request):
     return render(request, 'all.html', {'images': images})
 
     
-def logout_view(request):
+def logout_page(request):
     logout(request)
     return redirect('/')

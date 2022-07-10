@@ -1,2 +1,3 @@
 *.pyc
-venv/*
+venv
+frontend/node_modules
