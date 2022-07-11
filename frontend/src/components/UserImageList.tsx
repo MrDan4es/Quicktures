@@ -2,18 +2,22 @@ import React, { useState, useEffect } from "react";
 import ImageBlock from "./ImageBlock";
 import LinearProgress from "@mui/material/LinearProgress";
 import Row from "react-bootstrap/Row";
-import IImageData from "../types/image.type";
+import { IPostImageData } from "../types/image.type";
 import UserImageDataService from "../services/user.service";
 
-const UserImageList = () => {
-  const [images, setImages] = useState<Array<IImageData>>([]);
+interface Props {
+  images: IPostImageData[],
+  setImages: React.Dispatch<React.SetStateAction<IPostImageData[]>>
+}
+
+const UserImageList = (props: Props) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await UserImageDataService.getAll();
-        setImages(data);
+        props.setImages(data);
       } catch (error) {
         console.log(error);
       }
@@ -33,12 +37,12 @@ const UserImageList = () => {
       className="g-1 align-items-center mt-1"
     >
       {isLoaded ? (
-        images.map((image) => (
+        props.images.map((image, index) => (
           <ImageBlock
             name={image.title}
             url={image.url}
-            key={image.id}
-            id={image.id}
+            key={index}
+            id={index}
           />
         ))
       ) : (

@@ -5,9 +5,15 @@ import "./styles/AddImageBtn.scss";
 import { Button as BootstrapBtn, Modal, Form } from "react-bootstrap";
 import UploadIcon from "@mui/icons-material/Upload";
 import CheckImage from "./utils/CheckImage";
+import { IPostImageData } from "../types/image.type";
 import UserImageDataService from "../services/user.service";
 
-const AddImageBtn = () => {
+interface Props {
+  images: IPostImageData[],
+  setImages: React.Dispatch<React.SetStateAction<IPostImageData[]>>
+}
+
+const AddImageBtn = (props: Props) => {
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [url, setUrl] = useState("");
@@ -33,6 +39,7 @@ const AddImageBtn = () => {
               url: url,
             });
             handleClose();
+            props.setImages([{title: data. title, url: data.url}, ...props.images])
           } catch (error) {
             alert("ERROR");
             console.log(error);
