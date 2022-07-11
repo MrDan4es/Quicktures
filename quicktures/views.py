@@ -3,8 +3,6 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 
-from storage.models import Image
-
 
 def login_page(request): 
     if request.user.is_authenticated:
@@ -36,12 +34,6 @@ def login_page(request):
         'register_form':registerForm,
         'login_form': loginForm
     })
-    
-
-def all_page(request):
-    images = Image.objects.order_by('-date_create')[:24]
-    
-    return render(request, 'all.html', {'images': images})
 
     
 def logout_page(request):

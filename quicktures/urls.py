@@ -1,12 +1,12 @@
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 
 from rest_framework.routers import SimpleRouter
 
 from storage.views import AllImagesViewSet, UserImagesViewSet
-from .views import login_page, all_page, logout_page
+from .views import login_page, logout_page
 
 
 router = SimpleRouter()
