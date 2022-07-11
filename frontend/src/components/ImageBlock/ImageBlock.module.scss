@@ -1,0 +1,51 @@
+.imageCard {
+  border-radius: 6px;
+  overflow: hidden;
+  transition: 0.5s;
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: 1px solid #dee2e680 !important;
+  &:hover {
+    transition: 0.1s;
+    transform: scale(1.1);
+    z-index: 999;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+
+    .imgBlock {
+      filter: brightness(0.8);
+    }
+    .btnRemove,
+    .btnInform {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}
+.imgBlock {
+  transition: 0.1s;
+  object-fit: contain;
+  &:active {
+    transform: scale(0.9);
+    transition: 0.1s;
+  }
+}
+.btnRemove,
+.btnInform {
+  width: 32px !important;
+  height: 32px !important;
+  margin-left: calc(100% - 36px);
+  margin-top: calc(100% - 36px);
+  border-radius: 6px !important;
+  transition: 0.2s;
+  line-height: 1.6;
+  opacity: 0;
+  visibility: hidden;
+
+  &:hover {
+    margin-top: calc(100% - 38px);
+    transition: 0.1s;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+  }
+}
+.btnInform {
+  margin-left: 4px;
+}

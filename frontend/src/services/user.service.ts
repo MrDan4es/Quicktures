@@ -6,7 +6,10 @@ class UserImageDataService {
     return http.get<Array<IImageData>>("/api/images/");
   }
   post(data: IPostImageData) {
-    return http.post<IPostImageData>("/api/images/", JSON.stringify(data));
+    return http.post<IImageData>("/api/images/", JSON.stringify(data));
+  }
+  delete(id: number) {
+    return http.delete(`/api/images/${id}`);
   }
 }
 

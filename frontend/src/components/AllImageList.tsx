@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ImageBlock from "./ImageBlock";
+import ImageBlock from "./ImageBlock/ImageBlock";
 import LinearProgress from "@mui/material/LinearProgress";
 import Row from "react-bootstrap/Row";
 import IImageData from "../types/image.type";
@@ -8,6 +8,14 @@ import ImageDataService from "../services/image.service";
 const ImageList = () => {
   const [images, setImages] = useState<Array<IImageData>>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const deleteImage = (id: number) => {
+    setImages((current) =>
+      current.filter((image) => {
+        return image.id !== id;
+      })
+    );
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +43,7 @@ const ImageList = () => {
       {isLoaded ? (
         images.map((image) => (
           <ImageBlock
+            imageDeleted={deleteImage}
             name={image.title}
             url={image.url}
             key={image.id}

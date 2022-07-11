@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Button from "@mui/material/Button";
-import "./styles/AddImageBtn.scss";
 import { Button as BootstrapBtn, Modal, Form } from "react-bootstrap";
 import UploadIcon from "@mui/icons-material/Upload";
-import CheckImage from "./utils/CheckImage";
-import { IPostImageData } from "../types/image.type";
-import UserImageDataService from "../services/user.service";
+import CheckImage from "../utils/CheckImage";
+import IImageData from "../../types/image.type";
+import UserImageDataService from "../../services/user.service";
+import { useSnackbar } from "notistack";
+import styles from "./AddImageBtn.module.scss";
 
 interface Props {
-  images: IPostImageData[],
-  setImages: React.Dispatch<React.SetStateAction<IPostImageData[]>>
+  images: IImageData[];
+  setImages: React.Dispatch<React.SetStateAction<IImageData[]>>;
 }
 
 const AddImageBtn = (props: Props) => {
+  const { enqueueSnackbar } = useSnackbar();
   const [show, setShow] = useState(false);
   const [validated, setValidated] = useState(false);
   const [url, setUrl] = useState("");
@@ -39,7 +41,19 @@ const AddImageBtn = (props: Props) => {
               url: url,
             });
             handleClose();
-            props.setImages([{title: data. title, url: data.url}, ...props.images])
+            props.setImages([
+              {
+                title: data.title,
+                url: data.url,
+                date_create: data.date_create,
+                id: data.id,
+                username: data.username,
+              },
+              ...props.images,
+            ]);
+            enqueueSnackbar("Image added!", {
+              variant: "success",
+            });
           } catch (error) {
             alert("ERROR");
             console.log(error);
@@ -64,7 +78,7 @@ const AddImageBtn = (props: Props) => {
   return (
     <>
       <Button
-        className="col-12 mt-2 p-0 addImageBtn"
+        className={"col-12 mt-2 p-0 " + styles.addImageBtn}
         variant="text"
         onClick={handleShow}
       >

@@ -24,4 +24,4 @@ class UserImagesViewSet(ModelViewSet):
 
 class AllImagesViewSet(ReadOnlyModelViewSet):
     serializer_class = ImageSerializer
-    queryset = Image.objects.all()
+    queryset = Image.objects.all().order_by('-date_create')

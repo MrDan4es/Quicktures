@@ -3,7 +3,7 @@ import IImageData from "../types/image.type";
 
 class ImageDataService {
   getAll() {
-    return http.get<Array<IImageData>>("/api/all");
+    return http.get<Array<IImageData>>("/api/all/");
   }
 }
 

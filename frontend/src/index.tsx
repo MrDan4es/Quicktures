@@ -1,17 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import reportWebVitals from './reportWebVitals';
-import Routing from './components/Routing';
-import 'bootstrap/dist/css/bootstrap.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import Routing from "./components/Routing";
+import "bootstrap/dist/css/bootstrap.css";
+import { SnackbarProvider } from "notistack";
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(
-  <Routing />
+  <SnackbarProvider
+    autoHideDuration={4000}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "right",
+    }}
+  >
+    <Routing />
+  </SnackbarProvider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
