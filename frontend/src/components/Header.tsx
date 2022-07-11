@@ -1,17 +1,10 @@
 import React, { Component } from "react";
-import { Button, Switch } from "@mui/material";
+import { Button } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 
 export default class Header extends Component {
-  componentDidMount() {
-    const script = document.createElement("script");
-    script.src = "/static/switch.js";
-    script.async = true;
-    document.body.appendChild(script);
-  }
-
   render() {
     return (
       <Row
@@ -37,7 +30,15 @@ export default class Header extends Component {
           QuickTures
         </Link>
 
-        <Switch className="col-1 offset-1" id="lightSwitch" />
+        <Button
+          className="col-2 p-0"
+          style={{ lineHeight: 2, color: "gray" }}
+          variant="text"
+          size="small"
+          href="/all"
+        >
+          All Images
+        </Button>
       </Row>
     );
   }

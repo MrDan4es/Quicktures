@@ -47,12 +47,6 @@ const AddImageBtn = (props: Props) => {
         };
 
         fetchData();
-
-        //         $('#modal-add').modal('hide')
-        //         $('#imageAddToast').toast('show')
-        //         $('#images-container').prepend(`
-        //         <div>
-        //         </div>`)
       },
       () => {
         setValidated(true);
