@@ -15,11 +15,11 @@ export default class Header extends Component {
   render() {
     return (
       <Row
-        className="align-items-center mt-1 pb-1"
+        className="align-items-center mt-1 pb-1 g-0"
         style={{ borderBottom: "1px solid #dee2e680" }}
       >
         <Button
-          className="col-2"
+          className="col-2 p-0"
           style={{ lineHeight: 2, color: "gray" }}
           variant="text"
           size="small"

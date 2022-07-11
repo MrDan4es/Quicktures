@@ -4,7 +4,6 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Row from "react-bootstrap/Row";
 import IImageData from "../types/image.type";
 import UserImageDataService from "../services/user.service";
-import getCookie from "../services/getCookie";
 
 const UserImageList = () => {
   const [images, setImages] = useState<Array<IImageData>>([]);

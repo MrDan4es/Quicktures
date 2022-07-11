@@ -32,23 +32,20 @@ const AddImageBtn = () => {
               title: title.trim() || strDate,
               url: url,
             });
-            handleClose()
+            handleClose();
           } catch (error) {
-            alert('ERROR')
+            alert("ERROR");
             console.log(error);
           }
         };
 
         fetchData();
 
-
-
         //         $('#modal-add').modal('hide')
         //         $('#imageAddToast').toast('show')
         //         $('#images-container').prepend(`
         //         <div>
         //         </div>`)
-
       },
       () => {
         setValidated(true);
