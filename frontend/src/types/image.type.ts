@@ -5,3 +5,8 @@ export default interface IImageData {
     date_create: string,
     username: string,
 }
+
+export interface IPostImageData {
+    title: string,
+    url: string,
+}

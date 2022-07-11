@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 
@@ -13,11 +13,14 @@ router = SimpleRouter()
 router.register('images', UserImagesViewSet, basename='images')
 router.register('all', AllImagesViewSet, basename='all')
 
+frontend = login_required(TemplateView.as_view(template_name='index.html'))
+
 urlpatterns = [
     path('login/', login_page),
-    path('all/', all_page, name='all'),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('logout/', logout_page, name='logout'),
-    path('', login_required(TemplateView.as_view(template_name='index.html'))),
+    
+    path('', frontend),
+    path('all/', frontend),
 ]

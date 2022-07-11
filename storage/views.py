@@ -11,7 +11,7 @@ class UserImagesViewSet(ModelViewSet):
     serializer_class = ImageSerializer
     
     def get_queryset(self):
-        return Image.objects.filter(user=self.request.user)
+        return Image.objects.filter(user=self.request.user).order_by('-date_create')
     
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

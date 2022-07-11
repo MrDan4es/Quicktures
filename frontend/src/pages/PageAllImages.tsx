@@ -2,16 +2,15 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import AddImageBtn from "../components/AddImageBtn";
 import Header from "../components/Header";
-import UserImageList from "../components/UserImageList";
+import ImageList from "../components/AllImageList";
 
-function App() {
+const PageAllImages = () => {
   return (
     <Container>
       <Header />
-      <AddImageBtn />
-      <UserImageList />
+      <ImageList />
     </Container>
   );
-}
+};
 
-export default App;
+export default PageAllImages;
