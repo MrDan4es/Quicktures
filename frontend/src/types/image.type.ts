@@ -10,3 +10,7 @@ export interface IPostImageData {
     title: string,
     url: string,
 }
+
+export interface IUsername {
+    username: string
+}

@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 
 from rest_framework.routers import SimpleRouter
 
-from storage.views import AllImagesViewSet, UserImagesViewSet
+from storage.views import AllImagesViewSet, UserImagesViewSet, get_username
 from .views import login_page, logout_page
 
 
@@ -17,6 +17,7 @@ frontend = login_required(TemplateView.as_view(template_name='index.html'))
 
 urlpatterns = [
     path('login/', login_page),
+    path('api/user/', get_username),
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('logout/', logout_page, name='logout'),

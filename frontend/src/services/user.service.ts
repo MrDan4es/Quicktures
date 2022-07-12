@@ -1,5 +1,5 @@
 import http from "./http-csrf";
-import IImageData, { IPostImageData } from "../types/image.type";
+import IImageData, { IPostImageData, IUsername } from "../types/image.type";
 
 class UserImageDataService {
   getAll() {
@@ -10,6 +10,9 @@ class UserImageDataService {
   }
   delete(id: number) {
     return http.delete(`/api/images/${id}`);
+  }
+  getUsername() {
+    return http.get<IUsername>(`/api/user/`);
   }
 }
 
