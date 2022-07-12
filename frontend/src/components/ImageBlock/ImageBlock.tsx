@@ -10,6 +10,7 @@ interface Props {
   name: string;
   url: string;
   id: number;
+  isOwner: boolean;
   imageDeleted: Function;
 }
 
@@ -24,8 +25,13 @@ const ImageBlock = (props: Props) => {
   };
 
   return (
-    <Col id={props.name}>
-      <Card className={"ratio ratio-1x1 " + styles.imageCard}>
+    <Col id={"imageBlockId" + props.id}>
+      <Card
+        className={
+          "animate__animated animate__fadeIn ratio ratio-1x1 " +
+          styles.imageCard
+        }
+      >
         <Image
           onClick={() => ImageClicked()}
           src={props.url}
@@ -33,22 +39,26 @@ const ImageBlock = (props: Props) => {
           id={props.id.toString()}
         />
 
-        <Button
-          variant="outline-primary"
-          id={props.id.toString()}
-          className={"p-0 " + styles.btnInform}
-        >
-          <InfoIcon />
-        </Button>
+        {props.isOwner && (
+          <>
+            <Button
+              variant="outline-primary"
+              id={props.id.toString()}
+              className={"p-0 " + styles.btnInform}
+            >
+              <InfoIcon />
+            </Button>
 
-        <Button
-          variant="outline-danger"
-          id={props.id.toString()}
-          className={"p-0 " + styles.btnRemove}
-          onClick={() => props.imageDeleted(props.id)}
-        >
-          <DeleteIcon />
-        </Button>
+            <Button
+              variant="outline-danger"
+              id={props.id.toString()}
+              className={"p-0 " + styles.btnRemove}
+              onClick={() => props.imageDeleted(props.id)}
+            >
+              <DeleteIcon />
+            </Button>
+          </>
+        )}
       </Card>
     </Col>
   );

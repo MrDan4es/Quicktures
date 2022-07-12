@@ -30,15 +30,13 @@ export default class Header extends Component {
           QuickTures
         </Link>
 
-        <Button
-          className="col-2 p-0"
+        <Link
+          className="col-2 p-0 btn btn-outline-light"
           style={{ lineHeight: 2, color: "gray" }}
-          variant="text"
-          size="small"
-          href="/all"
+          to="/all"
         >
           All Images
-        </Button>
+        </Link>
       </Row>
     );
   }

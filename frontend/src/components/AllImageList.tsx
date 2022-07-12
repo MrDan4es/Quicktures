@@ -10,11 +10,16 @@ const ImageList = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const deleteImage = (id: number) => {
-    setImages((current) =>
-      current.filter((image) => {
-        return image.id !== id;
-      })
-    );
+    const element = document.getElementById(`imageBlockId${id}`) as HTMLElement;
+    element.classList.add("animate__animated", "animate__fadeOut");
+
+    element.addEventListener("animationend", () => {
+      setImages((current) =>
+        current.filter((image) => {
+          return image.id !== id;
+        })
+      );
+    });
   };
 
   useEffect(() => {
@@ -48,6 +53,7 @@ const ImageList = () => {
             url={image.url}
             key={image.id}
             id={image.id}
+            isOwner={false}
           />
         ))
       ) : (

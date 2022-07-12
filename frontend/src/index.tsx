@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Routing from "./components/Routing";
 import "bootstrap/dist/css/bootstrap.css";
+import "animate.css";
 import { SnackbarProvider } from "notistack";
 
 const root = ReactDOM.createRoot(

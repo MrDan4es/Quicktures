@@ -19,11 +19,18 @@ const UserImageList = (props: Props) => {
     const deleteImageAPI = async () => {
       try {
         await UserImageDataService.delete(id);
-        props.setImages((current) =>
-          current.filter((image) => {
-            return image.id !== id;
-          })
-        );
+        const element = document.getElementById(
+          `imageBlockId${id}`
+        ) as HTMLElement;
+        element.classList.add("animate__animated", "animate__fadeOut");
+
+        element.addEventListener("animationend", () => {
+          props.setImages((current) =>
+            current.filter((image) => {
+              return image.id !== id;
+            })
+          );
+        });
         enqueueSnackbar("Image deleted!", {
           variant: "error",
         });
@@ -62,6 +69,7 @@ const UserImageList = (props: Props) => {
         props.images.map((image, index) => (
           <ImageBlock
             imageDeleted={deleteImage}
+            isOwner={true}
             name={image.title}
             url={image.url}
             key={image.id}
