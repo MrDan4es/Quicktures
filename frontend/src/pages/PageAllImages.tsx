@@ -1,12 +1,15 @@
-import React from "react";
 import { Container } from "react-bootstrap";
 import Header from "../components/Header";
 import ImageList from "../components/AllImageList";
 
-const PageAllImages = () => {
+interface Props {
+  username: string;
+}
+
+const PageAllImages = (props: Props) => {
   return (
     <Container>
-      <Header />
+      <Header username={props.username} />
       <ImageList />
     </Container>
   );

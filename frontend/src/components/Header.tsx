@@ -1,26 +1,13 @@
-import { useEffect, useState } from "react";
-import UserImageDataService from "../services/user.service";
 import { Button } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 
-const Header = () => {
-  const [username, setUsername] = useState("username");
+interface Props {
+  username: string;
+}
 
-  useEffect(() => {
-    const fetchUsername = async () => {
-      try {
-        const { data } = await UserImageDataService.getUsername();
-        setUsername(data.username);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchUsername();
-  }, []);
-
+const Header = (props: Props) => {
   return (
     <Row
       className="align-items-center mt-1 pb-1 g-0"
@@ -34,7 +21,7 @@ const Header = () => {
         href="/logout/"
         endIcon={<LogoutIcon />}
       >
-        {username}
+        {props.username}
       </Button>
 
       <Link
