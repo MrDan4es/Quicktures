@@ -4,8 +4,9 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Row from "react-bootstrap/Row";
 import IImageData from "../types/image.type";
 import ImageDataService from "../services/image.service";
+import { Container } from "react-bootstrap";
 
-const ImageList = () => {
+const AllImageList = () => {
   const [images, setImages] = useState<Array<IImageData>>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -37,30 +38,31 @@ const ImageList = () => {
   }, []);
 
   return (
+    <Container className='col-4 offset-4'>
     <Row
-      xs={2}
-      sm={3}
-      md={4}
-      lg={5}
-      xl={6}
+      xs={1}
       className="g-1 align-items-center mt-1"
     >
       {isLoaded ? (
         images.map((image) => (
-          <ImageBlock
-            imageDeleted={deleteImage}
-            name={image.title}
-            url={image.url}
-            key={image.id}
-            id={image.id}
-            isOwner={false}
-          />
+          <div className="border">
+            <ImageBlock
+              imageDeleted={deleteImage}
+              name={image.title}
+              url={image.url}
+              key={image.id}
+              id={image.id}
+              isOwner={false}
+            />
+            <div>{new Date(image.date_create).getDate()}</div>
+          </div>
         ))
       ) : (
         <LinearProgress className="w-100" color="success" />
       )}
     </Row>
+    </Container>
   );
 };
 
-export default ImageList;
+export default AllImageList;
