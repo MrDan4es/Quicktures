@@ -3,11 +3,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import Row from "react-bootstrap/Row";
 import { Link } from "react-router-dom";
 
-interface Props {
-  username: string;
-}
-
-const Header = (props: Props) => {
+const Header = () => {
   return (
     <Row
       className="align-items-center mt-1 pb-1 g-0"
@@ -21,7 +17,7 @@ const Header = (props: Props) => {
         href="/logout/"
         endIcon={<LogoutIcon />}
       >
-        {props.username}
+        test
       </Button>
 
       <Link

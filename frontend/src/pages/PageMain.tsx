@@ -5,20 +5,17 @@ import Header from "../components/Header";
 import UserImageList from "../components/UserImageList";
 import IImageData from "../types/image.type";
 
-interface Props {
-  username: string;
-}
 
-function App(props: Props) {
+function PageMain() {
   const [images, setImages] = useState<Array<IImageData>>([]);
 
   return (
     <Container>
-      <Header username={props.username} />
+      <Header />
       <AddImageBtn images={images} setImages={setImages} />
       <UserImageList images={images} setImages={setImages} />
     </Container>
   );
 }
 
-export default App;
+export default PageMain;

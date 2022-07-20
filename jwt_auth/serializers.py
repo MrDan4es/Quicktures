@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
-from rest_framework.serializers import CharField, ModelSerializer, ValidationError, EmailField
+
+from rest_framework.serializers import CharField, ModelSerializer
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
@@ -9,7 +10,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
         token['username'] = user.username
-        token['email'] = user.email
 
         return token
 
