@@ -1,10 +1,15 @@
-import React, { FC, useContext, useState } from 'react';
+import { FC, useContext, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { Context } from '../index';
 
 export const LoginForm: FC = () => {
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const { store } = useContext(Context);
+
+    if (store.isAuth) {
+        return <Navigate to="/" />;
+    }
 
     return (
         <div>

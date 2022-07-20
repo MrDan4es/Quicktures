@@ -5,6 +5,8 @@ import PageAllImages from '../pages/PageAllImages';
 import { Context } from '../index';
 import PageLoginRegister from '../pages/PageLoginRegister';
 import PageMain from '../pages/PageMain';
+import { PrivateRoute } from './PrivateRoute';
+import { PageLogOut } from '../pages/PageLogOut';
 
 const Routing = () => {
     const { store } = useContext(Context);
@@ -17,8 +19,16 @@ const Routing = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<PageMain />} />
+                <Route
+                    path="/"
+                    element={
+                        <PrivateRoute>
+                            <PageMain />
+                        </PrivateRoute>
+                    }
+                />
                 <Route path="/login" element={<PageLoginRegister />} />
+                <Route path="/logout" element={<PageLogOut />} />
                 <Route path="/all" element={<PageAllImages />} />
                 <Route path="*" element={<Page404 />} />
             </Routes>

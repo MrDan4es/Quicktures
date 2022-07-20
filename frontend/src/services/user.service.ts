@@ -6,7 +6,7 @@ class UserImageDataService {
         return $api.get<Array<IImageData>>('images/');
     }
     post(data: IPostImageData) {
-        return $api.post<IImageData>('images/', JSON.stringify(data));
+        return $api.post<IImageData>('images/', data);
     }
     delete(id: number) {
         return $api.delete(`images/${id}`);

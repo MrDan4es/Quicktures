@@ -40,7 +40,7 @@ const AllImageList = () => {
     }, []);
 
     return (
-        <Container className="col-4 offset-4">
+        <Container>
             <Row
                 xs={2}
                 sm={3}
