@@ -4,13 +4,13 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 
 
-def login_page(request): 
+def login_page(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect('/')
-    
+
     registerForm = UserCreationForm()
     loginForm = AuthenticationForm()
-    
+
     if request.method == "POST":
         if request.POST.get('submit') == 'Log In':
             loginForm = AuthenticationForm(data=request.POST)
@@ -24,18 +24,18 @@ def login_page(request):
             registerForm = UserCreationForm(request.POST)
             if registerForm.is_valid():
                 user = registerForm.save()
-                username=registerForm.cleaned_data['username']
-                password=registerForm.cleaned_data['password1']
+                username = registerForm.cleaned_data['username']
+                password = registerForm.cleaned_data['password1']
                 user = authenticate(username=username, password=password)
                 login(request, user)
                 return HttpResponseRedirect('/')
-     
+
     return render(request, 'login.html', {
-        'register_form':registerForm,
+        'register_form': registerForm,
         'login_form': loginForm
     })
 
-    
+
 def logout_page(request):
     logout(request)
     return redirect('/')
