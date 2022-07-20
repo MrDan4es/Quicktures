@@ -1,0 +1,114 @@
+swagger: '2.0'
+info:
+    title: Quicktures API
+    version: '1.0'
+
+schemes:
+    - http
+host: 'localhost:8000'
+basePath: '/api'
+securityDefinitions:
+    JWT:
+        type: apiKey
+        in: header
+        name: Authorization
+tags:
+    - name: 'user'
+      description: 'Login & SignUp & Refresh JWT'
+paths:
+    /user/register/:
+        post:
+            tags:
+                - 'user'
+            summary: Register new user
+            consumes:
+                - application/json
+            parameters:
+                - in: 'body'
+                  name: 'body'
+                  required: true
+                  schema:
+                      $ref: '#/definitions/User'
+            responses:
+                201:
+                    description: User created
+                    schema:
+                        $ref: '#/definitions/Tokens'
+    /user/login/:
+        post:
+            tags:
+                - 'user'
+            summary: Login user
+            consumes:
+                - application/json
+            parameters:
+                - in: 'body'
+                  name: 'body'
+                  required: true
+                  schema:
+                      $ref: '#/definitions/User'
+            responses:
+                201:
+                    description: User created
+                    schema:
+                        $ref: '#/definitions/Tokens'
+    /images/:
+        get:
+            tags:
+                - 'images'
+            summary: Get list of images urls
+            security:
+                - JWT: []
+            responses:
+                '200':
+                    description: OK
+                    schema:
+                        type: 'array'
+                        items:
+                            $ref: '#/definitions/Image'
+                '401':
+                    description: 'Error: Unauthorized'
+    /all/:
+        get:
+            tags:
+                - 'images'
+            summary: Get list of all images urls
+            responses:
+                '200':
+                    description: OK
+                    schema:
+                        type: 'array'
+                        items:
+                            $ref: '#/definitions/Image'
+                '401':
+                    description: 'Error: Unauthorized'
+
+definitions:
+    User:
+        type: object
+        properties:
+            username:
+                type: string
+            password:
+                type: string
+    Tokens:
+        type: object
+        properties:
+            refresh:
+                type: string
+            access:
+                type: string
+    Image:
+        type: object
+        properties:
+            id:
+                type: integer
+            title:
+                type: string
+            url:
+                type: string
+            date_create:
+                type: string
+                format: date-time
+            username:
+                type: string
