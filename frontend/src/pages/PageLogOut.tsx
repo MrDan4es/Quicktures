@@ -7,7 +7,8 @@ export const PageLogOut = () => {
 
     useEffect(() => {
         store.logout();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-        
-    return <Navigate to="/login/" />
+
+    return <Navigate to="/login/" />;
 };

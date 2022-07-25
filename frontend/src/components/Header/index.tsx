@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import { Button } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Row from 'react-bootstrap/Row';
-import { Link, Navigate } from 'react-router-dom';
-import { Context } from '../index';
+import { Link } from 'react-router-dom';
+import { Context } from '../../';
 
 const Header = () => {
     const { store } = useContext(Context);

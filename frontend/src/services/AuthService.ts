@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import $api, { API_URL } from '../http';
+import { API_URL } from '../http';
 import { AuthResponse } from '../types/authResponse.type';
 
 export default class AuthService {
@@ -7,7 +7,7 @@ export default class AuthService {
         username: string,
         password: string
     ): Promise<AxiosResponse<AuthResponse>> {
-        return $api.post<AuthResponse>('/user/login/', {
+        return axios.post<AuthResponse>(`${API_URL}user/login/`, {
             username: username,
             password: password
         });

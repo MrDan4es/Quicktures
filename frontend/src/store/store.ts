@@ -20,29 +20,31 @@ export default class Store {
         this.username = username;
     }
 
-    async login(username: string, password: string) {
+    async login(username: string, password: string, errorFunction: Function) {
         try {
             const response = await AuthService.login(username, password);
-            console.log(response);
             localStorage.setItem('accessToken', response.data.access);
             localStorage.setItem('refreshToken', response.data.refresh);
             this.getUsername();
             this.setAuth(true);
         } catch (e) {
-            console.log(e);
+            errorFunction(e);
         }
     }
 
-    async register(username: string, password: string) {
+    async register(
+        username: string,
+        password: string,
+        errorFunction: Function
+    ) {
         try {
             const response = await AuthService.register(username, password);
-            console.log(response);
             localStorage.setItem('accessToken', response.data.access);
             localStorage.setItem('refreshToken', response.data.refresh);
             this.getUsername();
             this.setAuth(true);
         } catch (e) {
-            console.log(e);
+            errorFunction(e);
         }
     }
 
@@ -52,18 +54,14 @@ export default class Store {
             localStorage.removeItem('refreshToken');
             this.setAuth(false);
             this.setUsername('');
-        } catch (e) {
-            console.log(e);
-        }
+        } catch (e) {}
     }
 
     async getUsername() {
         try {
             const response = await $api.get<IUser>(`${API_URL}user/info/`);
             this.setUsername(response.data.username);
-        } catch (e) {
-            console.log(e);
-        }
+        } catch (e) {}
     }
 
     async checkAuth() {
@@ -76,7 +74,8 @@ export default class Store {
             this.getUsername();
             this.setAuth(true);
         } catch (e) {
-            console.log(e);
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
         }
     }
 
@@ -84,8 +83,6 @@ export default class Store {
         try {
             const response = await $api.get(`${API_URL}user/test/`);
             console.log(response);
-        } catch (e) {
-            console.log(e);
-        }
+        } catch (e) {}
     }
 }

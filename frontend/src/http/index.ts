@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const API_URL = 'http://localhost:8000/api/';
+// export const API_URL = 'https://quicktures.herokuapp.com/api/'
 
 const $api = axios.create({
     withCredentials: true,
@@ -26,7 +27,7 @@ $api.interceptors.response.use(
     async (error) => {
         const originalRequest = error.config;
         if (
-            error.response.status == 401 &&
+            error.response.status === 401 &&
             error.config &&
             !error.config._isRetry
         ) {
@@ -36,13 +37,14 @@ $api.interceptors.response.use(
                     refresh: localStorage.getItem('refreshToken')
                 });
                 console.log(response);
-                localStorage.setItem('accessToken', response.data.access);
-                localStorage.setItem('refreshToken', response.data.refresh);
+
                 return $api.request(originalRequest);
             } catch (e) {
                 console.log(e);
             }
         }
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
         throw error;
     }
 );

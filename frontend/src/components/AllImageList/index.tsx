@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ImageBlock from './ImageBlock/ImageBlock';
+import ImageBlock from '../ImageBlock';
 import LinearProgress from '@mui/material/LinearProgress';
 import Row from 'react-bootstrap/Row';
-import IImageData from '../types/image.type';
-import ImageDataService from '../services/image.service';
+import IImageData from '../../types/image.type';
+import ImageDataService from '../../services/image.service';
 import { Container } from 'react-bootstrap';
 
 const AllImageList = () => {

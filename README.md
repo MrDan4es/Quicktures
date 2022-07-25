@@ -29,6 +29,3 @@ pip install -r requirements.txt
 python manage.py makemigrations; python manage.py migrate
 python manage.py runserver
 ```
-# Screenshots
-![day mode screenshot](/static/img/day.png?raw=true)
-![night mode screenshot](/static/img/night.png?raw=true)

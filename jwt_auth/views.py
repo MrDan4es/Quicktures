@@ -1,7 +1,5 @@
-from json import JSONEncoder
-import json
 from django.contrib.auth.models import User
-from django.forms.models import model_to_dict
+
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.tokens import RefreshToken

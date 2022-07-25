@@ -15,7 +15,9 @@ const Routing = () => {
         if (localStorage.getItem('refreshToken')) {
             store.checkAuth();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     return (
         <BrowserRouter>
             <Routes>
@@ -27,9 +29,16 @@ const Routing = () => {
                         </PrivateRoute>
                     }
                 />
+                <Route
+                    path="/all"
+                    element={
+                        <PrivateRoute>
+                            <PageAllImages />
+                        </PrivateRoute>
+                    }
+                />
                 <Route path="/login" element={<PageLoginRegister />} />
                 <Route path="/logout" element={<PageLogOut />} />
-                <Route path="/all" element={<PageAllImages />} />
                 <Route path="*" element={<Page404 />} />
             </Routes>
         </BrowserRouter>
