@@ -1,14 +1,13 @@
 import { Container } from 'react-bootstrap';
-import Header from '../components/Header';
+
 import AllImageList from '../components/AllImageList';
+import Header from '../components/Header';
 
-const PageAllImages = () => {
-    return (
-        <Container>
-            <Header />
-            <AllImageList />
-        </Container>
-    );
+export const PageAllImages: React.FC = () => {
+  return (
+    <Container>
+      <Header />
+      <AllImageList />
+    </Container>
+  );
 };
-
-export default PageAllImages;

@@ -1,14 +1,15 @@
 import { useEffect, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
+
 import { Context } from '../index';
 
-export const PageLogOut = () => {
-    const { store } = useContext(Context);
+export const PageLogOut: React.FC = () => {
+  const { authStore } = useContext(Context);
 
-    useEffect(() => {
-        store.logout();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  useEffect(() => {
+    authStore.logout();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    return <Navigate to="/login/" />;
+  return <Navigate to="/login/" />;
 };

@@ -1,0 +1,21 @@
+version: '3.8'
+services:  
+  react:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    container_name: react
+    stdin_open: true
+    volumes:
+       - ./frontend:/usr/src/app/frontend
+       - /usr/src/app/frontend/node_modules
+  django:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    container_name: django
+    stdin_open: true
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"

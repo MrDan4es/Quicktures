@@ -2,31 +2,36 @@ import { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import Routing from './routing/';
 import { SnackbarProvider } from 'notistack';
-import Store from './store/store';
+import AuthStore from './store/store';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'animate.css';
 
 interface State {
-    store: Store;
+  authStore: AuthStore;
 }
 
-const store = new Store();
+const authStore = new AuthStore();
 
-export const Context = createContext<State>({ store });
+export const Context = createContext<State>({ authStore: authStore });
+
+if (localStorage.getItem('user_uuid')) {
+  authStore.checkAuth();
+}
 
 const root = ReactDOM.createRoot(
-    document.getElementById('root') as HTMLElement
+  document.getElementById('root') as HTMLElement
 );
+
 root.render(
-    <Context.Provider value={{ store }}>
-        <SnackbarProvider
-            autoHideDuration={4000}
-            anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right'
-            }}
-        >
-            <Routing />
-        </SnackbarProvider>
-    </Context.Provider>
+  <Context.Provider value={{ authStore: authStore }}>
+    <SnackbarProvider
+      autoHideDuration={4000}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'right'
+      }}
+    >
+      <Routing />
+    </SnackbarProvider>
+  </Context.Provider>
 );

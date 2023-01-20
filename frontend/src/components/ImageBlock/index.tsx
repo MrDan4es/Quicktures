@@ -1,10 +1,11 @@
-import React from "react";
-import { Col, Card, Button, Image } from "react-bootstrap";
-import DeleteIcon from "@mui/icons-material/Delete";
-import InfoIcon from "@mui/icons-material/Info";
-import styles from "./ImageBlock.module.scss";
-import CopyToClipboard from "../utils/CopyToClipboard";
-import { useSnackbar } from "notistack";
+import DeleteIcon from '@mui/icons-material/Delete';
+import InfoIcon from '@mui/icons-material/Info';
+import { Col, Card, Button, Image } from 'react-bootstrap';
+import { useSnackbar } from 'notistack';
+
+import { CopyToClipboard } from 'utils';
+
+import styles from './ImageBlock.module.scss';
 
 interface Props {
   name: string;
@@ -14,21 +15,21 @@ interface Props {
   imageDeleted: Function;
 }
 
-const ImageBlock = (props: Props) => {
+const ImageBlock: React.FC<Props> = props => {
   const { enqueueSnackbar } = useSnackbar();
 
   const ImageClicked = () => {
     CopyToClipboard(props.url);
-    enqueueSnackbar("URL copied to clipboard!", {
-      variant: "info",
+    enqueueSnackbar('URL copied to clipboard!', {
+      variant: 'info'
     });
   };
 
   return (
-    <Col id={"imageBlockId" + props.id}>
+    <Col id={'imageBlockId' + props.id}>
       <Card
         className={
-          "animate__animated animate__fadeIn ratio ratio-1x1 " +
+          'animate__animated animate__fadeIn ratio ratio-1x1 ' +
           styles.imageCard
         }
       >
@@ -44,7 +45,7 @@ const ImageBlock = (props: Props) => {
             <Button
               variant="outline-primary"
               id={props.id.toString()}
-              className={"p-0 " + styles.btnInform}
+              className={'p-0 ' + styles.btnInform}
             >
               <InfoIcon />
             </Button>
@@ -52,7 +53,7 @@ const ImageBlock = (props: Props) => {
             <Button
               variant="outline-danger"
               id={props.id.toString()}
-              className={"p-0 " + styles.btnRemove}
+              className={'p-0 ' + styles.btnRemove}
               onClick={() => props.imageDeleted(props.id)}
             >
               <DeleteIcon />

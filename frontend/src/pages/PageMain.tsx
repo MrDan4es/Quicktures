@@ -1,20 +1,19 @@
 import { useState } from 'react';
 import { Container } from 'react-bootstrap';
+
 import AddImageBtn from '../components/AddImageBtn/';
 import Header from '../components/Header/';
-import UserImageList from '../components/UserImageList/UserImageList';
 import IImageData from '../types/image.type';
+import UserImageList from '../components/UserImageList/UserImageList';
 
-function PageMain() {
-    const [images, setImages] = useState<Array<IImageData>>([]);
+export const PageMain: React.FC = () => {
+  const [images, setImages] = useState<Array<IImageData>>([]);
 
-    return (
-        <Container>
-            <Header />
-            <AddImageBtn images={images} setImages={setImages} />
-            <UserImageList images={images} setImages={setImages} />
-        </Container>
-    );
-}
-
-export default PageMain;
+  return (
+    <Container>
+      <Header />
+      <AddImageBtn images={images} setImages={setImages} />
+      <UserImageList images={images} setImages={setImages} />
+    </Container>
+  );
+};

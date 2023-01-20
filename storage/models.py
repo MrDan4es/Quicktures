@@ -1,17 +1,10 @@
 from django.contrib.auth.models import User
+from django.db import models
 from django.utils import timezone
-from django.db.models import (
-    CASCADE,
-    CharField,
-    DateTimeField,
-    ForeignKey,
-    Model,
-    URLField,
-)
 
 
-class Image(Model):
-    title = CharField('Название', max_length=20)
-    date_create = DateTimeField(default=timezone.now)
-    url = URLField('Адрес')
-    user = ForeignKey(User, on_delete=CASCADE)
+class Image(models.Model):
+    title = models.CharField('Название', max_length=20)
+    date_create = models.DateTimeField(default=timezone.now)
+    url = models.URLField('Адрес')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
