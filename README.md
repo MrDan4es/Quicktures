@@ -8,7 +8,7 @@
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
 
-Small Django app to store image URLs and with simplified copy to clipboard with responsive layout on Bootstrap.
+Django app to store image URLs and with simplified copy to clipboard with responsive layout on Bootstrap.
 
 #### Deployed on Heroku: https://quicktures.herokuapp.com/
 ### Authorization data for a test user:
@@ -29,6 +29,3 @@ pip install -r requirements.txt
 python manage.py makemigrations; python manage.py migrate
 python manage.py runserver
 ```
-# Screenshots
-![day mode screenshot](/static/img/day.png?raw=true)
-![night mode screenshot](/static/img/night.png?raw=true)
