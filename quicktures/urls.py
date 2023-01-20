@@ -1,7 +1,6 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.views.generic import TemplateView
-
 from rest_framework.routers import SimpleRouter
 
 from storage.views import AllImagesViewSet, UserImagesViewSet
@@ -18,8 +17,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
 
-    path('', frontend),
-    path('all/', frontend),
-    path('login/', frontend),
-    path('logout/', frontend),
+    re_path('^.*', frontend)
 ]
