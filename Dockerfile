@@ -4,7 +4,7 @@ COPY frontend/ ./frontend/
 RUN cd frontend && npm install
 
 FROM python:latest
-WORKDIR /code
-COPY requirements.txt /code/
+WORKDIR /code/backend
+COPY ./backend/requirements.txt /code/backend/
 RUN pip install -r requirements.txt
-COPY . /code/
+COPY backend/ /code/backend/

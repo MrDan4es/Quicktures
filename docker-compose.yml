@@ -16,6 +16,6 @@ services:
     container_name: django
     stdin_open: true
     volumes:
-      - .:/code
+      - ./backend:/code/backend
     ports:
       - "8000:8000"
